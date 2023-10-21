@@ -19,7 +19,7 @@ export declare type AgendaProps = CalendarListProps & ReservationListProps & {
     /** specify how agenda knob should look like */
     renderKnob?: () => JSX.Element;
     /** override inner list with a custom implemented component */
-    renderList?: (listProps: ReservationListProps) => JSX.Element;
+    renderList?: (listProps: ReservationListProps) => JSX.Element | undefined;
     /** initially selected day */
     selected?: string;
     /** Hide knob button. Default = false */
@@ -79,6 +79,7 @@ export default class Agenda extends Component<AgendaProps, State> {
         futureScrollRange?: React.Validator<number | null | undefined> | undefined;
         calendarWidth?: React.Validator<number | null | undefined> | undefined;
         calendarHeight?: React.Validator<number | null | undefined> | undefined;
+        containerStyle?: React.Validator<number | null | undefined> | undefined;
         calendarStyle?: React.Validator<ViewStyle | null | undefined> | undefined;
         staticHeader?: React.Validator<boolean | null | undefined> | undefined;
         showScrollIndicator?: React.Validator<boolean | null | undefined> | undefined;
@@ -341,6 +342,7 @@ export default class Agenda extends Component<AgendaProps, State> {
     calendarOffset(): number;
     initialScrollPadPosition: () => number;
     setScrollPadPosition: (y: number, animated: boolean) => void;
+    scrollToSelectedDay: () => void;
     toggleCalendarPosition: (open: boolean) => void;
     enableCalendarScrolling(enable?: boolean): void;
     loadReservations(props: AgendaProps): void;
