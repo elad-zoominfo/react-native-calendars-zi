@@ -251,6 +251,7 @@ class ReservationList extends Component {
                 onMoveShouldSetResponderCapture={this.onMoveShouldSetResponderCapture}
                 onScroll={this.onScroll}
                 refreshControl={this.props.refreshControl}
+                onScrollToIndexFailed={this.onScrollToIndexFailed.bind(this)}
                 refreshing={this.props.refreshing}
                 onRefresh={this.props.onRefresh}
                 onScrollBeginDrag={this.props.onScrollBeginDrag}
