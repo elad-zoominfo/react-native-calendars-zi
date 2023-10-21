@@ -264,7 +264,19 @@ export default class Agenda extends Component {
         const { markedDates, items } = this.props;
         const shouldHideExtraDays = this.state.calendarScrollable ? this.props.hideExtraDays : false;
         const calendarListProps = extractCalendarListProps(this.props);
-        return (<CalendarList {...calendarListProps} ref={this.calendar} current={getCalendarDateString(this.currentMonth.toString())} markedDates={this.generateMarkings(this.state.selectedDay, markedDates, items)} calendarWidth={this.viewWidth} scrollEnabled={this.state.calendarScrollable} hideExtraDays={shouldHideExtraDays} onLayout={this.onCalendarListLayout} onDayPress={this.onDayPress} onVisibleMonthsChange={this.onVisibleMonthsChange}/>);
+        return (
+            <CalendarList
+                {...calendarListProps}
+                ref={this.calendar}
+                current={getCalendarDateString(this.currentMonth.toString())}
+                markedDates={this.generateMarkings(this.state.selectedDay, markedDates, items)}
+                calendarWidth={this.viewWidth}
+                scrollEnabled={this.state.calendarScrollable}
+                hideExtraDays={shouldHideExtraDays}
+                onLayout={this.onCalendarListLayout}
+                onDayPress={this.onDayPress}
+                onVisibleMonthsChange={this.onVisibleMonthsChange}/>
+        );
     }
     renderKnob() {
         const { showClosingKnob, hideKnob, renderKnob } = this.props;
