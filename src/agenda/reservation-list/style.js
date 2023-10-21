@@ -9,6 +9,9 @@ export default function styleConstructor(theme = {}) {
         innerContainer: {
             flex: 1
         },
+        content: {
+            paddingBottom: 16,
+        },
         dayNum: {
             fontSize: 28,
             fontWeight: '200',

@@ -31,11 +31,14 @@ export default class Agenda extends Component {
         items: PropTypes.object,
         style: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.number]),
         loadItemsForMonth: PropTypes.func,
+        ListHeaderComponent: PropTypes.func,
+        renderStickyHeader: PropTypes.object,
+        containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.number]),
         onCalendarToggled: PropTypes.func,
         onDayChange: PropTypes.func,
         renderKnob: PropTypes.func,
         renderList: PropTypes.func,
-        selected: PropTypes.any,
+        selected: PropTypes.any, //TODO: Should be renamed 'selectedDay' and inherited from ReservationList
         hideKnob: PropTypes.bool,
         showClosingKnob: PropTypes.bool
     };
@@ -245,7 +248,17 @@ export default class Agenda extends Component {
                 onDayChange: this.onDayChange,
             });
         }
-        return (<ReservationList {...reservationListProps} ref={this.list} selectedDay={this.state.selectedDay} topDay={this.state.topDay} onDayChange={this.onDayChange}/>);
+        return (
+            <ReservationList
+                {...reservationListProps}
+                ListHeaderComponent={this.props.ListHeaderComponent}
+                renderStickyHeader={this.props.renderStickyHeader}
+                containerStyle={this.props.containerStyle}
+                ref={this.list}
+                selectedDay={this.state.selectedDay}
+                topDay={this.state.topDay}
+                onDayChange={this.onDayChange}/>
+        );
     }
     renderCalendarList() {
         const { markedDates, items } = this.props;
