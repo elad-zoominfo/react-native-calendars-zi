@@ -14,7 +14,7 @@ import styleConstructor from './style';
 import WeekDaysNames from '../commons/WeekDaysNames';
 import CalendarList from '../calendar-list';
 import ReservationList from './reservation-list';
-const HEADER_HEIGHT = 104;
+const HEADER_HEIGHT = 108;
 const KNOB_HEIGHT = 24;
 /**
  * @description: Agenda component
