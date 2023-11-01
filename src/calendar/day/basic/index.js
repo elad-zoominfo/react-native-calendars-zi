@@ -4,10 +4,10 @@ import { xdateToData } from '../../../interface';
 import styleConstructor from './style';
 import Marking from '../marking';
 const BasicDay = (props) => {
-    const { theme, date, onPress, onLongPress, markingType, marking, state, disableAllTouchEventsForDisabledDays, disableAllTouchEventsForInactiveDays, accessibilityLabel, children, testID } = props;
+    const { isNotSameMount, theme, date, onPress, onLongPress, markingType, marking, state, disableAllTouchEventsForDisabledDays, disableAllTouchEventsForInactiveDays, accessibilityLabel, children, testID } = props;
     const style = useRef(styleConstructor(theme));
     const _marking = marking || {};
-    const isSelected = _marking.selected || state === 'selected';
+    const isSelected = !isNotSameMount && (_marking.selected || state === 'selected');
     const isDisabled = typeof _marking.disabled !== 'undefined' ? _marking.disabled : state === 'disabled';
     const isInactive = _marking?.inactive;
     const isToday = state === 'today';
@@ -53,7 +53,9 @@ const BasicDay = (props) => {
     const getTextStyle = () => {
         const { customStyles, selectedTextColor } = _marking;
         const styles = [style.current.text];
-        if (isSelected) {
+        if (isNotSameMount){
+            styles.push(style.current.disabledText);
+        }else if (isSelected) {
             styles.push(style.current.selectedText);
             if (selectedTextColor) {
                 styles.push({ color: selectedTextColor });

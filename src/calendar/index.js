@@ -98,13 +98,11 @@ const Calendar = (props) => {
     };
     const renderDay = (day, id) => {
         const dayProps = extractDayProps(props);
-        if (!sameMonth(day, currentMonth) && hideExtraDays) {
-            return <View key={id} style={style.current.emptyDayContainer}/>;
-        }
+        const isNotSameMount = !sameMonth(day, currentMonth);
         const dateString = toMarkingFormat(day);
         const isControlled = isEmpty(props.context);
         return (<View style={style.current.dayContainer} key={id}>
-        <Day {...dayProps} testID={`${testID}.day_${dateString}`} date={dateString} state={getState(day, currentMonth, props, isControlled)} marking={markedDates?.[dateString]} onPress={_onDayPress} onLongPress={onLongPressDay}/>
+        <Day {...dayProps} isNotSameMount={isNotSameMount} testID={`${testID}.day_${dateString}`} date={dateString} state={getState(day, currentMonth, props, isControlled)} marking={markedDates?.[dateString]} onPress={_onDayPress} onLongPress={onLongPressDay}/>
       </View>);
     };
     const renderWeek = (days, id) => {
