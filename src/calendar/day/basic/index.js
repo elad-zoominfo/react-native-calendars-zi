@@ -7,7 +7,7 @@ const BasicDay = (props) => {
     const { isNotSameMount, theme, date, onPress, onLongPress, markingType, marking, state, disableAllTouchEventsForDisabledDays, disableAllTouchEventsForInactiveDays, accessibilityLabel, children, testID } = props;
     const style = useRef(styleConstructor(theme));
     const _marking = marking || {};
-    const isSelected = _marking.selected || state === 'selected';
+    const isSelected = !isNotSameMount && (_marking.selected || state === 'selected');
     const isDisabled = typeof _marking.disabled !== 'undefined' ? _marking.disabled : state === 'disabled';
     const isInactive = _marking?.inactive;
     const isToday = state === 'today';
@@ -32,7 +32,7 @@ const BasicDay = (props) => {
     const getContainerStyle = () => {
         const { customStyles, selectedColor } = _marking;
         const styles = [style.current.base];
-        if (isSelected && !isNotSameMount) {
+        if (isSelected) {
             styles.push(style.current.selected);
             if (selectedColor) {
                 styles.push({ backgroundColor: selectedColor });
@@ -84,7 +84,7 @@ const BasicDay = (props) => {
     }, [onLongPress, date]);
     const renderMarking = () => {
         const { marked, dotColor, dots, periods } = _marking;
-        return (<Marking type={markingType} theme={theme} marked={isMultiDot ? true : marked} selected={isSelected && !isNotSameMount} disabled={isDisabled} inactive={isInactive} today={isToday} dotColor={dotColor} dots={dots} periods={periods}/>);
+        return (<Marking type={markingType} theme={theme} marked={isMultiDot ? true : marked} selected={isSelected} disabled={isDisabled} inactive={isInactive} today={isToday} dotColor={dotColor} dots={dots} periods={periods}/>);
     };
     const renderText = () => {
         return (<Text allowFontScaling={false} style={getTextStyle()}>
