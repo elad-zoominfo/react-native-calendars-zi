@@ -4,7 +4,7 @@ import { xdateToData } from '../../../interface';
 import styleConstructor from './style';
 import Marking from '../marking';
 const BasicDay = (props) => {
-    const { theme, date, onPress, onLongPress, markingType, marking, state, disableAllTouchEventsForDisabledDays, disableAllTouchEventsForInactiveDays, accessibilityLabel, children, testID } = props;
+    const { isNotSameMount, theme, date, onPress, onLongPress, markingType, marking, state, disableAllTouchEventsForDisabledDays, disableAllTouchEventsForInactiveDays, accessibilityLabel, children, testID } = props;
     const style = useRef(styleConstructor(theme));
     const _marking = marking || {};
     const isSelected = _marking.selected || state === 'selected';
@@ -32,7 +32,7 @@ const BasicDay = (props) => {
     const getContainerStyle = () => {
         const { customStyles, selectedColor } = _marking;
         const styles = [style.current.base];
-        if (isSelected) {
+        if (isSelected && !isNotSameMount) {
             styles.push(style.current.selected);
             if (selectedColor) {
                 styles.push({ backgroundColor: selectedColor });
@@ -53,7 +53,9 @@ const BasicDay = (props) => {
     const getTextStyle = () => {
         const { customStyles, selectedTextColor } = _marking;
         const styles = [style.current.text];
-        if (isSelected) {
+        if (isNotSameMount){
+            styles.push(style.current.disabledText);
+        }else if (isSelected) {
             styles.push(style.current.selectedText);
             if (selectedTextColor) {
                 styles.push({ color: selectedTextColor });
@@ -82,7 +84,7 @@ const BasicDay = (props) => {
     }, [onLongPress, date]);
     const renderMarking = () => {
         const { marked, dotColor, dots, periods } = _marking;
-        return (<Marking type={markingType} theme={theme} marked={isMultiDot ? true : marked} selected={isSelected} disabled={isDisabled} inactive={isInactive} today={isToday} dotColor={dotColor} dots={dots} periods={periods}/>);
+        return (<Marking type={markingType} theme={theme} marked={isMultiDot ? true : marked} selected={isSelected && !isNotSameMount} disabled={isDisabled} inactive={isInactive} today={isToday} dotColor={dotColor} dots={dots} periods={periods}/>);
     };
     const renderText = () => {
         return (<Text allowFontScaling={false} style={getTextStyle()}>
