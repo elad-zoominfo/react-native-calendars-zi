@@ -87,7 +87,7 @@ const CalendarHeader = forwardRef((props, ref) => {
             return customHeaderTitle;
         }
         return (<Fragment>
-        <Text allowFontScaling={false} style={style.current.monthText} testID={`${testID}.title`} {...webProps}>
+        <Text allowFontScaling={false} style={[style.current.monthText, { lineHeight: 18}]} testID={`${testID}.title`} {...webProps}>
           {formatNumbers(month?.toString(monthFormat))}
         </Text>
       </Fragment>);
